@@ -1,4 +1,5 @@
-from vowels import count_vowels
+from vowels import count_vowels, check_age
+
 
 def main():
     print(count_vowels("hello"))
@@ -8,5 +9,8 @@ def main():
     print(count_vowels("baby"))
     print(count_vowels("matter"))
     print(count_vowels("onomatopoeia"))
+    check_age()
+    check_age()
+    check_age()
 
 main()
