@@ -2,6 +2,9 @@ from vowels import count_vowels
 
 
 def main():
-    pass
+    hint:str = "Enter text: "
+    for i in range(5):
+        count:int = count_vowels(input(hint))
+        print(f"Vowels count: {count}\n")
 
 main()
