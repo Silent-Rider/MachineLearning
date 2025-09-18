@@ -1,4 +1,4 @@
-from vowels import count_vowels
+from laboratory_works.lab1vowels import count_vowels
 
 
 def main():
@@ -8,3 +8,4 @@ def main():
         print(f"Vowels count: {count}\n")
 
 main()
+
