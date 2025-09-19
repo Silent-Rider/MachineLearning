@@ -5,8 +5,6 @@ import numpy as np
 
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
 
-
-
 def vectorize_sequences(sequences, dimension=10000):
     results = np.zeros((len(sequences), dimension))
     for i, sequence in enumerate(sequences):
@@ -61,10 +59,6 @@ history = model.fit(partial_x_train,
     epochs=200,
     batch_size=len(train_data),
     validation_data=(x_val, y_val))
-
-history_dict = history.history
-print(history_dict.keys())
-#dict_keys(['val_loss', 'val_acc', 'loss', 'acc'])
 
 print("\n--- ТЕСТИРУЕМ МОДЕЛЬ ---")
 while True:
