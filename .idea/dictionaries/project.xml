@@ -2,6 +2,7 @@
   <dictionary name="project">
     <words>
       <w>crossentropy</w>
+      <w>mclr</w>
       <w>rmsprop</w>
       <w>аеёиоуыэюя</w>
       <w>аеёиоуэюя</w>
