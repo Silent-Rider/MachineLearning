@@ -5,7 +5,7 @@ import numpy as np
 from helper_utils import vectorize_sequences
 
 
-def readFile(filepath, text_labels:dict):
+def read_file(filepath, text_labels:dict):
     sentences: list[str] = []
     labels: list[int] = []
     current_genre = None
@@ -56,7 +56,7 @@ def generate_data(filepath) -> tuple[list[str], list[int]]:
         "драма": 3,
         "боевик": 4
     }
-    sentences, labels = readFile(filepath, genre_to_label)
+    sentences, labels = read_file(filepath, genre_to_label)
 
     combined = list(zip(sentences, labels))
     random.seed(42)
@@ -67,7 +67,7 @@ def generate_data(filepath) -> tuple[list[str], list[int]]:
 
 
 tokenizer = Tokenizer()
-(raw_data, raw_labels) = generate_data("movie_genres.txt")
+(raw_data, raw_labels) = generate_data("dataset/movie_genres.txt")
 tokenizer.fit_on_texts(raw_data)
 train_data = vectorize_sequences(tokenizer.texts_to_sequences(raw_data), 1000)
 train_labels = np.asarray(raw_labels).astype('float32')
