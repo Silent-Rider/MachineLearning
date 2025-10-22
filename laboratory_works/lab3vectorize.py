@@ -27,7 +27,7 @@ np.save(input_file, input_vector)
 input_vector = np.load(input_file, allow_pickle=True)
 print(input_vector[:5])
 
-output_matrix = vector_to_binary_matrix(input_vector, power + 1)
+output_matrix = vector_to_binary_matrix(input_vector)
 print(output_matrix[:3])
 np.save('output_matrix.npy', output_matrix)
 
