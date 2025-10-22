@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def vector_to_binary_matrix(data_vector):
     data = np.array(data_vector)
     if data.min() < 0:
