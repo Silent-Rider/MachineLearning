@@ -23,7 +23,7 @@ input_vector = np.random.rand(1000) * (2 ** power)
 input_vector = input_vector.astype('uint8')
 np.save(input_file, input_vector)
 
-input_vector = np.load(input_file, allow_pickle=True)
+input_vector = np.load(input_file)
 print(input_vector[:5])
 
 output_matrix = vector_to_binary_matrix(input_vector)
