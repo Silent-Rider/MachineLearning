@@ -2,9 +2,7 @@ import math
 
 import numpy as np
 from keras import Sequential, layers
-from numpy import ndarray
-
-from helper_utils import draw_plots
+from keras.src.optimizers import Adam
 
 def generate_dataset() -> tuple:
     data = []
@@ -39,7 +37,7 @@ def keras_model(x) -> Sequential:
     model.add(layers.Dense(4, activation='relu', input_shape=(x.shape[1], )))
     model.add(layers.Dense(1, activation='sigmoid'))
 
-    model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=Adam(learning_rate=0.02), loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
 
@@ -63,7 +61,7 @@ def manual_model(x, w1, b1, w2, b2):
             output += w2[i] * hidden[i]
         output += b2
 
-        result.append(manual_sigmoid(float(output)))
+        result.append(float(manual_sigmoid(output)))
     return result
 
 
@@ -85,20 +83,25 @@ def extract_weights(model:Sequential) -> tuple:
     print("Смещение нейрона второго слоя: \n", b2)
     return (w1, b1), (w2, b2)
 
+def print_results(model, x):
+    (weight1, bias1), (weight2, bias2) = extract_weights(model)
+    manual_predict = manual_model(x, weight1.T, bias1, weight2[:, 0], bias2)
+    numpy_predict = numpy_model(x, weight1, bias1, weight2, bias2)
+
+    print(model.predict(x)[:, 0])
+    print(manual_predict)
+    print(numpy_predict)
+    print()
 
 x_data, y_labels = generate_dataset()
 keras_model = keras_model(x_data)
 
 # До обучения
 print("До обучения модели")
-(weight1, bias1), (weight2, bias2) = extract_weights(keras_model)
+print_results(keras_model, x_data)
 
-manual_model = manual_model(x_data, weight1.T, bias1, weight2[:, 0], bias2)
-numpy_model = numpy_model(x_data, weight1, bias1, weight2, bias2)
+hist_obj = keras_model.fit(x_data, y_labels, epochs=100)
+print("После обучения модели")
+print_results(keras_model, x_data)
 
-print(keras_model.predict(x_data)[:, 0])
-print(manual_model)
-print(numpy_model)
-
-#hist_obj = keras_model.fit(x_data, y_labels, epochs=50)
 
