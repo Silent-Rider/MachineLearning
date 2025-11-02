@@ -4,7 +4,7 @@ import matplotlib.colors as mclr
 from tensorflow.keras import layers
 from tensorflow.keras import models
 
-def genData(size=500):
+def gen_data(size=500) -> tuple[tuple, tuple]:
     data = np.random.rand(size, 2)*2 - 1
     label = np.zeros([size, 1])
     for i, p in enumerate(data):
@@ -19,14 +19,14 @@ def genData(size=500):
     test_lab = label[div:, :]
     return (train_dat, train_lab), (test_dat, test_lab)
 
-def drawResults(data, label, prediction):
+def draw_results(data, label, prediction):
     p_label = np.array([round(x[0]) for x in prediction])
     plt.scatter(data[:, 0], data[:, 1], s=30, c=label[:, 0], cmap=mclr.ListedColormap(['red', 'blue']))
     plt.scatter(data[:, 0], data[:, 1], s=10, c=p_label, cmap=mclr.ListedColormap(['red', 'blue']))
     plt.grid()
     plt.show()
 
-(train_data, train_label), (test_data, test_label) = genData()
+(train_data, train_label), (test_data, test_label) = gen_data()
 
 model = models.Sequential()
 model.add(layers.Dense(16, activation='relu', input_shape=(2,)))
@@ -79,4 +79,4 @@ print(results)
 all_data = np.vstack((train_data, test_data))
 all_label = np.vstack((train_label, test_label))
 pred = model.predict(all_data)
-drawResults(all_data, all_label, pred)
+draw_results(all_data, all_label, pred)
