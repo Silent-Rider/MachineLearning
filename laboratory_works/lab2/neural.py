@@ -71,6 +71,7 @@ def numpy_model(x, w1, b1, w2, b2):
 
     output = hidden @ w2 + b2
     output = 1.0 / (1.0 + np.exp(-output))
+    print("Initial output numpy: " + str(output))
     return output.flatten()
 
 

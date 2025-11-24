@@ -4,9 +4,11 @@
       <w>#транспонирую</w>
       <w>crossentropy</w>
       <w>mclr</w>
+      <w>regr</w>
       <w>rmsprop</w>
       <w>аеёиоуыэюя</w>
       <w>аеёиоуэюя</w>
+      <w>полносвязных</w>
     </words>
   </dictionary>
 </component>
