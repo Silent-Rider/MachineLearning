@@ -37,7 +37,7 @@ def create_general_model() -> Model:
     #Decoder
     dec = Dense(12, activation='relu', name='decoder_1')(enc)
     dec = Dense(9, activation='relu', name='decoder_2')(dec)
-    dec = Dense(6, activation='linear', name='decoder_output')(dec)
+    dec = Dense(6, activation='linear', name='decoder')(dec)
 
     #Regressor
     regr = Dense(12, activation='relu')(enc)
@@ -76,7 +76,7 @@ model.fit(x_train,
 np.random.seed(45)
 
 df_original = generate_data()
-df_original.to_csv('original_dataset.csv')
+df_original.to_csv('original_dataset.csv', index=False)
 X = df_original.drop(columns=['F5']).values
 
 #Encoder
@@ -84,25 +84,25 @@ encoder = Model(inputs=model.input, outputs=model.get_layer('encoder').output)
 encoder.save('encoder_model.h5')
 encoder_pred = encoder.predict(X)
 df_encoder = pd.DataFrame(encoder_pred, columns=[f'E{(i + 1)}' for i in range(len(encoder_pred[0]))])
-df_encoder.to_csv('encoded_dataset.csv')
+df_encoder.to_csv('encoded_dataset.csv', index=False)
 
 #Decoder
 decoder_input = Input(shape=(3,))
 dec1 = model.get_layer('decoder_1')(decoder_input)
 dec2 = model.get_layer('decoder_2')(dec1)
-dec_out = model.get_layer('decoder_output')(dec2)
+dec_out = model.get_layer('decoder')(dec2)
 decoder = Model(inputs=decoder_input, outputs=dec_out)
 decoder.save('decoder_model.h5')
 decoder_pred = decoder.predict(encoder_pred)
 df_decoder = pd.DataFrame(decoder_pred, columns=FEATURE_NAMES)
-df_decoder.to_csv('decoded_dataset.csv')
+df_decoder.to_csv('decoded_dataset.csv', index=False)
 
 #Regressor
 regressor = Model(inputs=model.input, outputs=model.get_layer('regressor').output)
 regressor.save('regressor_model.h5')
 regressor_pred = regressor.predict(X)
 df_regressor = pd.DataFrame(regressor_pred, columns=['F5'])
-df_regressor.to_csv('regressed_dataset.csv')
+df_regressor.to_csv('regressed_dataset.csv', index=False)
 
 
 
