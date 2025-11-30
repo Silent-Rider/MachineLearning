@@ -3,7 +3,7 @@ import random
 from keras import models, layers
 from matplotlib import pyplot as plt
 
-import gens
+from laboratory_works.lab4 import gens
 import numpy as np
 
 def gen_data(size=500, img_size=50):
