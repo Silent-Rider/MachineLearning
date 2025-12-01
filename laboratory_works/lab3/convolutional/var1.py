@@ -3,7 +3,7 @@ import random
 from keras import models, layers
 from matplotlib import pyplot as plt
 
-from laboratory_works.lab4 import gens
+import gens
 import numpy as np
 
 def gen_data(size=500, img_size=50):
@@ -92,4 +92,30 @@ print('Expected:')
 print('\t'.join(f'{i}. {v}' for i, v in enumerate(test_labels)))
 print('Predictions:')
 print('\t'.join(f'{i}. {v}' for i, v in enumerate(predictions)))
+
+# --- Примеры изображений из обучающей выборки ---
+plt.figure(figsize=(10, 4))
+for i in range(5):
+    plt.subplot(2, 5, i + 1)
+    plt.imshow(train_data[i].squeeze(), cmap='gray')
+    plt.title(f'{"Square" if train_labels[i] == 1 else "Circle"}')
+    plt.axis('off')
+
+# + 5 из тестовой (после предсказаний — с истиной и предсказанием)
+plt.subplot(2, 5, 6)
+plt.imshow(test_data[0].squeeze(), cmap='gray')
+plt.title(f'Тест:\n {test_labels[0]}\n→ {predictions[0]}', color='green' if test_labels[0] == predictions[0] else 'red')
+plt.axis('off')
+
+for i in range(1, 5):
+    plt.subplot(2, 5, 6 + i)
+    plt.imshow(test_data[i].squeeze(), cmap='gray')
+    correct = test_labels[i] == predictions[i]
+    plt.title(f'{test_labels[i]} → {predictions[i]}',
+              color='green' if correct else 'red')
+    plt.axis('off')
+
+plt.suptitle('Примеры классифицируемых объектов')
+plt.tight_layout()
+plt.show()
 
